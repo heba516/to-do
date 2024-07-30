@@ -1,0 +1,56 @@
+.reg, .login {
+    margin: auto;
+    .form {
+        border: 1px solid #e5e5e5;
+        border-radius: 1rem;
+        padding: 1.5rem;
+        -webkit-border-radius: 1rem;
+        -moz-border-radius: 1rem;
+        -ms-border-radius: 1rem;
+        -o-border-radius: 1rem;
+        input {
+            border: none; 
+            border-bottom: 1px solid #e5e5e5;
+            font-size: 1em;
+            color: #69665C;
+
+            &:focus {
+                box-shadow: none !important;
+            }
+        }
+        label {
+            svg {
+                width: 1.2rem;
+                margin-right: .8rem;
+            }
+        }
+
+        button {
+            margin-top: 1.5rem;
+            padding: .7rem 3rem;
+}
+}
+}
+
+.error {
+    color: rgb(224, 57, 57);
+    margin-top: 0.1rem;
+    margin-bottom: 2.5rem;
+    height: .5rem;
+}
+
+@media (max-width: 991px) {
+    .reg,.login {
+        width: 95% !important;
+    }
+}
+
+.form-floating>.form-control:focus,
+.form-floating>.form-control:not(:placeholder-shown) {
+    padding-top: 2rem !important;
+}
+input:focus {
+    .form-floating>label {
+            top: -15px !important;
+        }
+}

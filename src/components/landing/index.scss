@@ -1,0 +1,52 @@
+@use './flex' as *;
+
+.start {
+    @include flexCenter;
+    height: 100vh;
+    background-color: #FFF9DE;
+
+
+    h1 {
+        position: relative;
+        font-size: 6em;
+        color: #69665C;
+
+        &::before {
+            content: "";
+            position: absolute;
+            top: 60%;
+            left: 0;
+            height: 0.25rem;
+            background-color: #69665C;
+            animation: LR .8s forwards;
+            -webkit-animation: LR .8s forwards;
+        }
+    }
+}
+
+.landing {
+    @include flexCenter;
+    height: 100vh;
+    text-align: center;
+    justify-content: space-around;
+
+    p {
+        line-height: 1.8;
+        letter-spacing: 1px;
+        margin: 2rem;
+    }
+
+    img {
+        max-width: 40%;
+    }
+}
+
+@keyframes LR {
+    from {
+        width: 0;
+    }
+
+    to {
+        width: 100%;
+    }
+}
