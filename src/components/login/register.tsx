@@ -1,9 +1,9 @@
 import { useFormik } from "formik";
-import { useState } from "react";
 import * as Yup from "yup";
-import "./index.scss";
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { Mail, UserRound, Lock } from "lucide-react";
-import { Link } from "react-router-dom";
+import "./index.scss";
 
 interface UserValues {
   userName: string;
@@ -13,6 +13,7 @@ interface UserValues {
 }
 const Register: React.FC = () => {
   const [submit, isSubmit] = useState(false);
+  const navigate = useNavigate();
 
   const validationSchema = Yup.object().shape({
     userName: Yup.string()
@@ -34,8 +35,8 @@ const Register: React.FC = () => {
   const handleSubmit = async (values: UserValues) => {
     try {
       isSubmit(true);
+      navigate("/Home");
       console.log(values);
-      isSubmit(false);
     } catch (error) {
       isSubmit(false);
       console.log(error);
@@ -140,13 +141,9 @@ const Register: React.FC = () => {
                     <div className="error">{formik.errors.confirmPassword}</div>
                   )}
               </div>
-
-              <Link to={"Home"}>
-                <button type="submit" disabled={submit}>
-                  Signup
-                </button>
-              </Link>
-
+              <button type="submit" disabled={submit}>
+                Signup
+              </button>
               <p className="mt-2" style={{ color: "#69665C" }}>
                 Have an account already? <Link to={"/login"}>Sign In</Link>
               </p>

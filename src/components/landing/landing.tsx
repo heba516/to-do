@@ -15,7 +15,7 @@ export default function Landing() {
         <h1>todo</h1>
       </div>
       <div className="landing container">
-        <div className="row">
+        <div className="row align-items-center">
           <div className="col">
             <h2>
               <span style={{ color: "#a8d2f8" }}>t</span>
@@ -24,7 +24,7 @@ export default function Landing() {
               <span style={{ color: "#b4aef6" }}>o</span>
             </h2>
 
-            <p>
+            <p className="px-lg-5">
               Join to capture ideas, organize life, and do something creative
               everyday.
             </p>
@@ -35,7 +35,7 @@ export default function Landing() {
           </div>
 
           <img
-            className="col d-none d-md-block"
+            className="col d-none d-lg-block"
             src="https://d107mjio2rjf74.cloudfront.net/sites/res/home/common/header.png"
             alt=""
           />
