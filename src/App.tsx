@@ -12,12 +12,9 @@ function App() {
       <Router>
         <Routes>
           <Route path="/" Component={Landing} />
-          <Route path="/register" Component={Register}></Route>
+          <Route path="/register" Component={Register} />
           <Route path="Home" Component={Home} />
           <Route path="/login" Component={Login} />
-          {/* <Route path="/login" Component={Login}>
-            <Route path="Home" Component={Home} />
-          </Route> */}
           <Route path="*" Component={NotFound} />
         </Routes>
       </Router>

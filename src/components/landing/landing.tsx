@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import "./index.scss";
 import { useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
+import Logo from "../logo";
 
 export default function Landing() {
   useEffect(() => {
@@ -17,12 +18,7 @@ export default function Landing() {
       <div className="landing container">
         <div className="row align-items-center">
           <div className="col">
-            <h2>
-              <span style={{ color: "#a8d2f8" }}>t</span>
-              <span style={{ color: "#ff49b4" }}>o</span>
-              <span style={{ color: "#80be75" }}>d</span>
-              <span style={{ color: "#b4aef6" }}>o</span>
-            </h2>
+            <Logo />
 
             <p className="px-lg-5">
               Join to capture ideas, organize life, and do something creative

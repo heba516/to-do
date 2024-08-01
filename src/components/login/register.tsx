@@ -1,15 +1,18 @@
+import "./index.scss";
+import Logo from "../logo";
+import { useState } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Mail, UserRound, Lock } from "lucide-react";
-import "./index.scss";
+import users from "../../../data/db.json";
 
 interface UserValues {
   userName: string;
   email: string;
   password: string;
-  confirmPassword: string;
+  confirmPassword?: string;
+  toDos?: string[];
 }
 const Register: React.FC = () => {
   const [submit, isSubmit] = useState(false);
@@ -19,9 +22,21 @@ const Register: React.FC = () => {
     userName: Yup.string()
       .min(3, "Name must be minimum 3")
       .max(10, "Name must not be more than 10 characters")
-      .required("Name is required"),
+      .required("Name is required")
+      .test(
+        "Not Found",
+        "User Name Exist",
+        (value) => !users.users.some((user) => user.userName === value)
+      ),
 
-    email: Yup.string().email("Invalid email").required("Email is required"),
+    email: Yup.string()
+      .email("Invalid email")
+      .required("Email is required")
+      .test(
+        "Found",
+        "This Email Already Have Account",
+        (value) => !users.users.some((user) => user.email === value)
+      ),
 
     password: Yup.string()
       .min(6, "Password must be at least 6 characters")
@@ -35,8 +50,21 @@ const Register: React.FC = () => {
   const handleSubmit = async (values: UserValues) => {
     try {
       isSubmit(true);
-      navigate("/Home");
+      fetch("http://localhost:3000/users", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          userName: values.userName,
+          email: values.email,
+          password: values.password,
+          toDos: [],
+        }),
+      });
+
       console.log(values);
+
+      navigate("/Home");
+      isSubmit(false);
     } catch (error) {
       isSubmit(false);
       console.log(error);
@@ -49,6 +77,7 @@ const Register: React.FC = () => {
       email: "",
       password: "",
       confirmPassword: "",
+      toDos: [],
     },
     validationSchema,
     onSubmit: handleSubmit,
@@ -57,12 +86,7 @@ const Register: React.FC = () => {
     <>
       <div className="container text-center">
         <div className="reg w-50">
-          <h2 className="my-5">
-            <span style={{ color: "#a8d2f8" }}>t</span>
-            <span style={{ color: "#ff49b4" }}>o</span>
-            <span style={{ color: "#80be75" }}>d</span>
-            <span style={{ color: "#b4aef6" }}>o</span>
-          </h2>
+          <Logo />
           <div className="form">
             <form onSubmit={formik.handleSubmit}>
               <div className="form-floating mb-3">

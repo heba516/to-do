@@ -4,12 +4,15 @@ import { useState } from "react";
 import { Mail, Lock } from "lucide-react";
 import "./index.scss";
 import users from "../../../data/db.json";
+import Logo from "../logo";
+import { Link, useNavigate } from "react-router-dom";
 interface UserValues {
   email: string;
   password: string;
 }
 const Register: React.FC = () => {
   const [submit, isSubmit] = useState(false);
+  const navigate = useNavigate();
 
   const isPasswordCorrect = (email: string, password: string) => {
     const user = users.users.find((user) => user.email === email);
@@ -35,6 +38,7 @@ const Register: React.FC = () => {
     try {
       isSubmit(true);
       console.log(values);
+      navigate("/Home");
     } catch (error) {
       isSubmit(false);
       console.log(error);
@@ -53,12 +57,7 @@ const Register: React.FC = () => {
     <>
       <div className="container text-center">
         <div className="reg w-50">
-          <h2 className="my-5">
-            <span style={{ color: "#a8d2f8" }}>t</span>
-            <span style={{ color: "#ff49b4" }}>o</span>
-            <span style={{ color: "#80be75" }}>d</span>
-            <span style={{ color: "#b4aef6" }}>o</span>
-          </h2>
+          <Logo />
           <div className="form">
             <form onSubmit={formik.handleSubmit}>
               <div className="form-floating mb-3">
@@ -100,6 +99,9 @@ const Register: React.FC = () => {
               <button type="submit" disabled={submit}>
                 Login
               </button>
+              <p className="mt-2" style={{ color: "#69665C" }}>
+                <Link to={"/register"}>Sign Up For Free</Link>
+              </p>
             </form>
           </div>
         </div>
