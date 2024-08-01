@@ -8,86 +8,60 @@ import {
 } from "lucide-react";
 import Logo from "../logo";
 import "./index.scss";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 export default function Home() {
   const [isCompeleted, setICompeleted] = useState(true);
+  const [todos, setTodos] = useState([]);
   const navigate = useNavigate();
 
-  // const toDos = async () => {
-  //   const user = await (
-  //     await fetch("http://localhost:3000/users?userName=heba")
-  //   ).json();
-  //   const userToDos = user[0].toDos;
-  //   return userToDos;
-  // };
+  const fetchTodos = async () => {
+    const response = await fetch("http://localhost:3000/users?userName=heba");
+    if (!response.ok) {
+      throw new Error("Failed to fetch users");
+    }
+    const toDos = await response.json();
+    console.log(response);
 
-  // fetch("http://localhost:3000/users?userName=heba")
-  //   .then((response) => {
-  //     if (!response.ok) {
-  //       throw new Error("Network response was not ok");
-  //     }
-  //     return response.json();
-  //   })
-  //   .then((data) => {
-  //     const toDos = data[0].toDos;
-  //     return toDos;
-  //   })
-  //   .catch((error) => {
-  //     console.error("There was a problem with the fetch operation:", error);
-  //   });
-  // console.log(toDos);
+    setTodos(toDos[0].toDos);
+    return toDos;
+  };
 
-  // const handleDelete = (todo) => {
-  //   fetch("http://localhost:3000/users", {
-  //     method: "PUT",
+  useEffect(() => {
+    fetchTodos();
+    // console.log(fetchTodos());
+  }, []);
+
+  // const handelAdd = (newTask: string) => {
+  //   todos.push(newTask);
+  //   setTodos(todos);
+  //   console.log(todos);
+
+  //   fetch("http://localhost:3000/users?userName=heba", {
+  //     method: "POST",
   //     headers: { "Content-Type": "application/json" },
-  //     body: JSON.stringify({
-  //       toDos: toDos.filter((toDo) => toDo !== todo),
-  //     }),
+  //     // body: JSON
+  //     //   .stringify
+  //     //   // toDos: todos
+  //     //   (),
   //   });
   // };
 
-  // Assuming you have a JSON server running on port 3000 with a 'todos' endpoint
+  const handleDelete = async (val: string) => {
+    const updatedToDos = todos.filter((todo) => todo !== val);
+    setTodos(updatedToDos);
 
-  // const fetchTodos = async () => {
-  //   try {
-  //     const response = await fetch("http://localhost:3000/users?userName=heba");
-  //     const todos = await response.json();
-  //     return todos[0].toDos;
-  //   } catch (error) {
-  //     console.error("Error fetching todos:", error);
-  //   }
-  // };
+    console.log(todos);
 
-  // fetchTodos()
-  //   .then((todos) => {
-  //     console.log(todos);
-  //   })
-  //   .catch((error) => {
-  //     console.error("Error fetching todos:", error);
-  //   });
-
-  // const handleDelete = (todo: string) => {
-  //   const url = `http://localhost:3000/users?userName=heba`;
-
-  //   fetch(url, {
-  //     method: "DELETE",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //   })
-  //     .then((response) => {
-  //       if (!response.ok) {
-  //         throw new Error("Failed to delete todo");
-  //       }
-  //       console.log("Todo deleted successfully");
-  //     })
-  //     .catch((error) => {
-  //       console.error("Error deleting todo:", error);
-  //     });
-  // };
+    await fetch("http://localhost:3000/users/7c43", {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ toDos: updatedToDos }),
+    });
+  };
 
   return (
     <>
@@ -118,21 +92,28 @@ export default function Home() {
           </aside>
           <section className="col-10 col-lg-9 py-5">
             <div className="todos">
-              <div className="d-flex align-items-center justify-content-between p-3">
-                {}
-                <div className="d-flex align-items-center">
-                  <p
-                    className="mb-0 me-4"
-                    onClick={() => {
-                      setICompeleted(!isCompeleted);
-                    }}
-                  >
-                    {!isCompeleted ? <SquareCheckBig /> : <Square />}
-                  </p>
-                  <input />
-                </div>
-                <X />
-              </div>
+              {todos ? (
+                todos.map((toDo) => {
+                  return (
+                    <div className="d-flex align-items-center justify-content-between p-3 mb-4">
+                      <div className="d-flex align-items-center">
+                        <p
+                          className="mb-0 me-4"
+                          onClick={() => {
+                            setICompeleted(!isCompeleted);
+                          }}
+                        >
+                          {!isCompeleted ? <SquareCheckBig /> : <Square />}
+                        </p>
+                        <input value={toDo} onChange={() => {}} />
+                      </div>
+                      <X onClick={() => handleDelete(toDo)} />
+                    </div>
+                  );
+                })
+              ) : (
+                <div>emp</div>
+              )}
             </div>
           </section>
         </div>
