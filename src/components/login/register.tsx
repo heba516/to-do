@@ -5,7 +5,6 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { Link, useNavigate } from "react-router-dom";
 import { Mail, UserRound, Lock } from "lucide-react";
-import users from "../../../data/db.json";
 
 interface UserValues {
   userName: string;
@@ -18,25 +17,33 @@ const Register: React.FC = () => {
   const [submit, isSubmit] = useState(false);
   const navigate = useNavigate();
 
+  const fetchUsers = async () => {
+    const response = await fetch("http://localhost:3000/users");
+    if (!response.ok) {
+      throw new Error("Failed to fetch users");
+    }
+    return response.json();
+  };
+
   const validationSchema = Yup.object().shape({
     userName: Yup.string()
       .min(3, "Name must be minimum 3")
       .max(10, "Name must not be more than 10 characters")
       .required("Name is required")
-      .test(
-        "Not Found",
-        "User Name Exist",
-        (value) => !users.users.some((user) => user.userName === value)
-      ),
+      .test("Not Found", "User Name Exist", async (value) => {
+        const users = await fetchUsers();
+        return !users.some(
+          (user: { userName: string }) => user.userName === value
+        );
+      }),
 
     email: Yup.string()
       .email("Invalid email")
       .required("Email is required")
-      .test(
-        "Found",
-        "This Email Already Have Account",
-        (value) => !users.users.some((user) => user.email === value)
-      ),
+      .test("Found", "This Email Already Have Account", async (value) => {
+        const users = await fetchUsers();
+        return !users.some((user: { email: string }) => user.email === value);
+      }),
 
     password: Yup.string()
       .min(6, "Password must be at least 6 characters")
@@ -53,22 +60,14 @@ const Register: React.FC = () => {
       fetch("http://localhost:3000/users", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          userName: values.userName,
-          email: values.email,
-          password: values.password,
-          toDos: [],
-        }),
+        body: JSON.stringify(values),
       });
-
-      console.log(values);
-
       navigate("/Home");
       isSubmit(false);
     } catch (error) {
-      isSubmit(false);
-      console.log(error);
+      console.log("err" + error);
     }
+    isSubmit(false);
   };
 
   const formik = useFormik({

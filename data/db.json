@@ -12,7 +12,18 @@
       "userName": "heba",
       "email": "heba@gmail.com",
       "password": "heba123",
-      "toDos": ["say hi", "say bye"]
+      "toDos": [
+        "say hi",
+        "say bye"
+      ]
+    },
+    {
+      "id": "00b6",
+      "userName": "hebay",
+      "email": "bobo@gmail.com",
+      "password": "123456",
+      "confirmPassword": "123456",
+      "toDos": []
     }
   ]
 }

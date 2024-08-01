@@ -3,28 +3,37 @@ import * as Yup from "yup";
 import { useState } from "react";
 import { Mail, Lock } from "lucide-react";
 import "./index.scss";
-import users from "../../../data/db.json";
 import Logo from "../logo";
 import { Link, useNavigate } from "react-router-dom";
 interface UserValues {
   email: string;
   password: string;
 }
-const Register: React.FC = () => {
+const Login: React.FC = () => {
   const [submit, isSubmit] = useState(false);
   const navigate = useNavigate();
 
-  const isPasswordCorrect = (email: string, password: string) => {
-    const user = users.users.find((user) => user.email === email);
+  const fetchUsers = async () => {
+    const response = await fetch("http://localhost:3000/users");
+    if (!response.ok) {
+      throw new Error("Failed to fetch users");
+    }
+    return response.json();
+  };
+
+  const isPasswordCorrect = async (email: string, password: string) => {
+    const users = await fetchUsers();
+    const user = users.find((user: { email: string }) => user.email === email);
     return user && user.password === password;
   };
 
   const validationSchema = Yup.object().shape({
     email: Yup.string()
       .required("Email is required")
-      .test("Found", "Incorrect Email", (value) =>
-        users.users.some((user) => user.email === value)
-      ),
+      .test("Found", "Incorrect Email", async (value) => {
+        const users = await fetchUsers();
+        return users.some((user: { email: string }) => user.email === value);
+      }),
 
     password: Yup.string()
       .required("Password is required")
@@ -38,6 +47,7 @@ const Register: React.FC = () => {
     try {
       isSubmit(true);
       console.log(values);
+
       navigate("/Home");
     } catch (error) {
       isSubmit(false);
@@ -110,4 +120,4 @@ const Register: React.FC = () => {
   );
 };
 
-export default Register;
+export default Login;
