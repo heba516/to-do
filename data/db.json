@@ -12,7 +12,7 @@
       "userName": "heba",
       "email": "heba@gmail.com",
       "password": "heba123",
-      "toDos": []
+      "toDos": ["say hi", "say bye"]
     }
   ]
 }
