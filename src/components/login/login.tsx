@@ -12,7 +12,7 @@ interface UserValues {
 const Login: React.FC = () => {
   const [submit, isSubmit] = useState(false);
   const navigate = useNavigate();
-
+  //query params
   const fetchUsers = async () => {
     const response = await fetch("http://localhost:3000/users");
     if (!response.ok) {
@@ -21,33 +21,36 @@ const Login: React.FC = () => {
     return response.json();
   };
 
-  const isPasswordCorrect = async (email: string, password: string) => {
-    const users = await fetchUsers();
-    const user = users.find((user: { email: string }) => user.email === email);
-    return user && user.password === password;
-  };
-
   const validationSchema = Yup.object().shape({
-    email: Yup.string()
-      .required("Email is required")
-      .test("Found", "Incorrect Email", async (value) => {
-        const users = await fetchUsers();
-        return users.some((user: { email: string }) => user.email === value);
-      }),
+    email: Yup.string().required("Email is required"),
 
-    password: Yup.string()
-      .required("Password is required")
-      .test("Correct Password", "Incorrect Password", function (value: string) {
-        const { email } = this.parent;
-        return isPasswordCorrect(email, value);
-      }),
+    password: Yup.string().required("Password is required"),
   });
 
   const handleSubmit = async (values: UserValues) => {
     try {
-      isSubmit(true);
-      console.log(values);
+      const users = await fetchUsers();
+      console.log(users);
 
+      const user = users.find(
+        (user: { email: string }) => user.email === values.email
+      );
+      if (user) {
+        console.log(user);
+
+        if (user.password !== values.password) {
+          console.log("false pass");
+
+          isSubmit(false);
+          formik.errors.password = "Incorrect Password";
+          return;
+        }
+      } else {
+        isSubmit(false);
+        formik.errors.email = "Incorrect Email";
+        return;
+      }
+      console.log(values);
       navigate("/Home");
     } catch (error) {
       isSubmit(false);
