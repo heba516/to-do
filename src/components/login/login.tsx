@@ -51,7 +51,7 @@ const Login: React.FC = () => {
         return;
       }
       console.log(values);
-      navigate("/Home");
+      navigate(`/Home/${user.id}`);
     } catch (error) {
       isSubmit(false);
       console.log(error);

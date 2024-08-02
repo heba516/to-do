@@ -9,29 +9,40 @@ import {
 import Logo from "../logo";
 import "./index.scss";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
+interface toDo {
+  id: string;
+  todo: string;
+  date: string;
+}
 export default function Home() {
   const [isCompeleted, setICompeleted] = useState(true);
   const [todos, setTodos] = useState([]);
   const navigate = useNavigate();
+  const { id } = useParams();
 
   const fetchTodos = async () => {
-    const response = await fetch("http://localhost:3000/users?userName=heba");
+    const response = await fetch("http://localhost:3000/users/" + id);
     if (!response.ok) {
       throw new Error("Failed to fetch users");
     }
     const toDos = await response.json();
-    console.log(response);
-
-    setTodos(toDos[0].toDos);
-    return toDos;
+    setTodos(toDos.toDos);
+    return toDos.toDos;
+    // await fetch("http://localhost:3000/users/" + id),
+    //   {
+    //     method: "GET",
+    //     headers: {
+    //       headers: { "Content-Type": "application/json" },
+    //     },
+    //   };
   };
 
   useEffect(() => {
     fetchTodos();
-    // console.log(fetchTodos());
   }, []);
+  console.log(fetchTodos);
 
   // const handelAdd = (newTask: string) => {
   //   todos.push(newTask);
@@ -48,13 +59,40 @@ export default function Home() {
   //   });
   // };
 
-  const handleDelete = async (val: string) => {
-    const updatedToDos = todos.filter((todo) => todo !== val);
+  // const handleDelete = async (todoID: string) => {
+  //   const updatedToDos = todos.filter(
+  //     (todo: { id: string }) => todo.id !== todoID
+  //   );
+
+  //   // console.log(setTodos(updatedToDos));
+
+  //   console.log({ todos }, { updatedToDos });
+
+  //   // console.log([updatedToDos[0]]);
+
+  //   await fetchTodos(),
+  //     {
+  //       method: "PATCH",
+  //       headers: {
+  //         headers: { "Content-Type": "application/json" },
+  //       },
+  //       body: JSON.stringify({ toDos: updatedToDos }),
+  //     };
+  // };
+
+  const handleDelete = async (todoID: string) => {
+    // Filter out the todo item with the specified ID
+    const updatedToDos = todos.filter(
+      (todo: { id: string }) => todo.id !== todoID
+    );
+
+    // Update the state with the new list of todos
     setTodos(updatedToDos);
 
-    console.log(todos);
+    console.log({ todos }, { updatedToDos });
 
-    await fetch("http://localhost:3000/users/7c43", {
+    // Send a PATCH request to update the todos on the server
+    const response = await fetch("http://localhost:3000/users/" + id, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -62,6 +100,20 @@ export default function Home() {
       body: JSON.stringify({ toDos: updatedToDos }),
     });
   };
+
+  // Handle the response as need
+
+  // Handle the response as need
+  // const handleUpdate = (val: string, id:string)=> {
+  //   fetchTodos(),
+  //     {
+  //       method: "PUT",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //       body: JSON.stringify({ toDos[id]: val }),
+  //     };
+  // }
 
   return (
     <>
@@ -93,9 +145,12 @@ export default function Home() {
           <section className="col-10 col-lg-9 py-5">
             <div className="todos">
               {todos ? (
-                todos.map((toDo) => {
+                todos.map((toDo: toDo) => {
                   return (
-                    <div className="d-flex align-items-center justify-content-between p-3 mb-4">
+                    <div
+                      className="d-flex align-items-center justify-content-between p-3 mb-4"
+                      key={toDo.id}
+                    >
                       <div className="d-flex align-items-center">
                         <p
                           className="mb-0 me-4"
@@ -105,9 +160,19 @@ export default function Home() {
                         >
                           {!isCompeleted ? <SquareCheckBig /> : <Square />}
                         </p>
-                        <input value={toDo} onChange={() => {}} />
+                        <input
+                          value={toDo.todo}
+                          onChange={(e) => (e.target.value = "hjkh")}
+                        />
                       </div>
-                      <X onClick={() => handleDelete(toDo)} />
+                      <input
+                        type="date"
+                        name="date"
+                        id="date"
+                        value={toDo.date}
+                        onChange={() => console.log("hello")}
+                      />
+                      <X onClick={() => handleDelete(toDo.id)} />
                     </div>
                   );
                 })
