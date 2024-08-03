@@ -1,134 +1,70 @@
-import {
-  LayoutList,
-  LogOut,
-  Plus,
-  Square,
-  SquareCheckBig,
-  X,
-} from "lucide-react";
+import { Annoyed, LayoutList, ListChecks, LogOut, Plus } from "lucide-react";
 import Logo from "../logo";
 import "./index.scss";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import axios from "axios";
+import User from "./user";
+import ToDo from "./userData";
 
-interface toDo {
-  id: string;
-  todo: string;
-  date: string;
-}
 export default function Home() {
-  const [isCompeleted, setICompeleted] = useState(true);
-  const [todos, setTodos] = useState([]);
+  const [todos, setTodos] = useState<ToDo[]>([]);
   const navigate = useNavigate();
   const { id } = useParams();
 
-  const fetchTodos = async () => {
-    const response = await fetch("http://localhost:3000/users/" + id);
-    if (!response.ok) {
-      throw new Error("Failed to fetch users");
-    }
-    const toDos = await response.json();
-    setTodos(toDos.toDos);
-    return toDos.toDos;
-    // await fetch("http://localhost:3000/users/" + id),
-    //   {
-    //     method: "GET",
-    //     headers: {
-    //       headers: { "Content-Type": "application/json" },
-    //     },
-    //   };
-  };
-
   useEffect(() => {
-    fetchTodos();
+    const getUsers = async () => {
+      const { data } = await axios.get("http://localhost:3000/users/" + id);
+      setTodos(data.toDos);
+    };
+    getUsers();
   }, []);
-  console.log(fetchTodos);
-
-  // const handelAdd = (newTask: string) => {
-  //   todos.push(newTask);
-  //   setTodos(todos);
-  //   console.log(todos);
-
-  //   fetch("http://localhost:3000/users?userName=heba", {
-  //     method: "POST",
-  //     headers: { "Content-Type": "application/json" },
-  //     // body: JSON
-  //     //   .stringify
-  //     //   // toDos: todos
-  //     //   (),
-  //   });
-  // };
-
-  // const handleDelete = async (todoID: string) => {
-  //   const updatedToDos = todos.filter(
-  //     (todo: { id: string }) => todo.id !== todoID
-  //   );
-
-  //   // console.log(setTodos(updatedToDos));
-
-  //   console.log({ todos }, { updatedToDos });
-
-  //   // console.log([updatedToDos[0]]);
-
-  //   await fetchTodos(),
-  //     {
-  //       method: "PATCH",
-  //       headers: {
-  //         headers: { "Content-Type": "application/json" },
-  //       },
-  //       body: JSON.stringify({ toDos: updatedToDos }),
-  //     };
-  // };
 
   const handleDelete = async (todoID: string) => {
-    // Filter out the todo item with the specified ID
-    const updatedToDos = todos.filter(
-      (todo: { id: string }) => todo.id !== todoID
-    );
-
-    // Update the state with the new list of todos
+    const updatedToDos = todos.filter((todo: ToDo) => todo.id !== todoID);
     setTodos(updatedToDos);
-
-    console.log({ todos }, { updatedToDos });
-
-    // Send a PATCH request to update the todos on the server
-    const response = await fetch("http://localhost:3000/users/" + id, {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ toDos: updatedToDos }),
+    await axios.patch(`http://localhost:3000/users/${id}`, {
+      toDos: updatedToDos,
     });
   };
 
-  // Handle the response as need
+  const handleEdit = async (todoID: string, value: string) => {
+    console.log(todos);
 
-  // Handle the response as need
-  // const handleUpdate = (val: string, id:string)=> {
-  //   fetchTodos(),
-  //     {
-  //       method: "PUT",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //       },
-  //       body: JSON.stringify({ toDos[id]: val }),
-  //     };
-  // }
+    const updatedToDo = todos.map((toDo: ToDo) => {
+      if (toDo.id === todoID) {
+        return { ...toDo, todo: value };
+      }
+      return { ...toDo };
+    });
+
+    console.log(updatedToDo);
+
+    // setTodos(updatedToDo);
+    await axios.patch(`http://localhost:3000/users/${id}`, {
+      toDos: updatedToDo,
+    });
+  };
+
+  // const handleAdd = () => {};
 
   return (
     <>
       <div className="container-fluid body">
         <header className="mx-md-5">
           <Logo />
-          <p className="mb-0">Hello, Heba</p>
         </header>
 
         <div className="row p-1">
           <aside className="col-2 col-lg-3 py-5 px-0 px-lg-5 d-flex justify-content-between flex-column">
             <div>
-              <p className="">
+              <p>
                 <LayoutList className="me-lg-2" />
-                <span className="d-none d-lg-inline">Tasks</span>
+                <span className="d-none d-lg-inline">All Tasks</span>
+              </p>
+              <p>
+                <ListChecks className="me-lg-2" />
+                Compeleted
               </p>
               <p>
                 <Plus className="me-lg-2" />
@@ -145,43 +81,23 @@ export default function Home() {
           <section className="col-10 col-lg-9 py-5">
             <div className="todos">
               {todos ? (
-                todos.map((toDo: toDo) => {
+                todos.map((toDo: ToDo) => {
                   return (
-                    <div
-                      className="d-flex align-items-center justify-content-between p-3 mb-4"
+                    <User
                       key={toDo.id}
-                    >
-                      <div className="d-flex align-items-center">
-                        <p
-                          className="mb-0 me-4"
-                          onClick={() => {
-                            setICompeleted(!isCompeleted);
-                          }}
-                        >
-                          {!isCompeleted ? <SquareCheckBig /> : <Square />}
-                        </p>
-                        <input
-                          value={toDo.todo}
-                          onChange={(e) => (e.target.value = "hjkh")}
-                        />
-                      </div>
-                      <input
-                        type="date"
-                        name="date"
-                        id="date"
-                        value={toDo.date}
-                        onChange={() => console.log("hello")}
-                      />
-                      <X onClick={() => handleDelete(toDo.id)} />
-                    </div>
+                      toDo={toDo}
+                      handleDelete={() => handleDelete(toDo.id)}
+                      handleEdit={handleEdit}
+                    />
                   );
                 })
               ) : (
-                <div>emp</div>
+                <Annoyed />
               )}
             </div>
           </section>
         </div>
+        {/* <Outlet /> */}
       </div>
     </>
   );

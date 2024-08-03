@@ -12,7 +12,7 @@ interface UserValues {
 const Login: React.FC = () => {
   const [submit, isSubmit] = useState(false);
   const navigate = useNavigate();
-  //query params
+
   const fetchUsers = async () => {
     const response = await fetch("http://localhost:3000/users");
     if (!response.ok) {

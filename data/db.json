@@ -14,7 +14,17 @@
         {
           "todo": "hello3",
           "date": "2024-09-08",
-          "id": "adza21"
+          "id": "ad11"
+        },
+        {
+          "todo": "hello3",
+          "date": "2024-09-08",
+          "id": "d121"
+        },
+        {
+          "todo": "hello3",
+          "date": "2024-09-08",
+          "id": "a21"
         }
       ]
     },
@@ -23,12 +33,14 @@
       "userName": "heba",
       "email": "heba@gmail.com",
       "password": "heba123",
-      "toDos": {
-        "0": {
-          "1": "hello2",
-          "id": "sad21"
+      "toDos": [
+        "good hiii",
+        {
+          "todo": "good hiiio",
+          "date": "2024-09-08",
+          "id": "ad11"
         }
-      }
+      ]
     },
     {
       "id": "00b6",
@@ -36,6 +48,14 @@
       "email": "bobo@gmail.com",
       "password": "123456",
       "confirmPassword": "123456",
+      "toDos": []
+    },
+    {
+      "id": "dff0",
+      "userName": "lames",
+      "email": "lames@gmail.com",
+      "password": "lam123",
+      "confirmPassword": "lam123",
       "toDos": []
     }
   ]

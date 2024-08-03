@@ -5,6 +5,7 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { Link, useNavigate } from "react-router-dom";
 import { Mail, UserRound, Lock } from "lucide-react";
+import axios from "axios";
 
 interface UserValues {
   userName: string;
@@ -12,41 +13,34 @@ interface UserValues {
   password: string;
   confirmPassword?: string;
   toDos?: string[];
+  id?: string;
 }
 const Register: React.FC = () => {
   const [submit, isSubmit] = useState(false);
   const navigate = useNavigate();
 
   const fetchUsers = async () => {
-    const response = await fetch("http://localhost:3000/users");
-    if (!response.ok) {
-      throw new Error("Failed to fetch users");
-    }
-    return response.json();
+    const { data } = await axios.get("http://localhost:3000/users");
+    return data;
   };
 
   const validationSchema = Yup.object().shape({
     userName: Yup.string()
       .min(3, "Name must be minimum 3")
       .max(10, "Name must not be more than 10 characters")
-      .required("Name is required")
-      .test("Not Found", "User Name Exist", async (value) => {
-        const users = await fetchUsers();
-        return !users.some(
-          (user: { userName: string }) => user.userName === value
-        );
-      }),
+      .required("Name is required"),
 
     email: Yup.string()
       .email("Invalid email")
       .required("Email is required")
-      .test("Found", "This Email Already Have Account", async (value) => {
-        const users = await fetchUsers();
-        return !users.some((user: { email: string }) => user.email === value);
-      }),
+      .matches(/^[a-zA-Z\d]+@gmail.com$/g, "example@gmail.com"),
 
     password: Yup.string()
       .min(6, "Password must be at least 6 characters")
+      .matches(
+        /^(?=.*[A-Za-z])(?=.*\d).+$/g,
+        "Must containes at least one number"
+      )
       .required("Password is required"),
 
     confirmPassword: Yup.string()
@@ -56,18 +50,33 @@ const Register: React.FC = () => {
 
   const handleSubmit = async (values: UserValues) => {
     try {
-      isSubmit(true);
-      fetch("http://localhost:3000/users", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(values),
-      });
-      navigate("/Home");
-      isSubmit(false);
+      const users = await fetchUsers();
+
+      const nameIsFound = users.find(
+        (user: UserValues) => user.userName === values.userName
+      );
+      const emailIsFound = users.find(
+        (user: UserValues) => user.email === values.email
+      );
+
+      if (nameIsFound) {
+        formik.errors.userName = "UserName Already Exists";
+      }
+
+      if (emailIsFound) {
+        formik.errors.email = "This Email has an Account";
+      }
+
+      if (!nameIsFound && !emailIsFound) {
+        await axios.post("http://localhost:3000/users", values).then((res) => {
+          navigate(`/Home/${res.data.id}`);
+        });
+      }
     } catch (error) {
-      console.log("err" + error);
+      console.log("Error: ", error);
+    } finally {
+      isSubmit(false);
     }
-    isSubmit(false);
   };
 
   const formik = useFormik({
