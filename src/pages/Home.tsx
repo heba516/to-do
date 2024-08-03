@@ -48,6 +48,10 @@ export default function Home() {
 
   // const handleAdd = () => {};
 
+  const handleLogout = () => {
+    localStorage.removeItem("id");
+    navigate("/");
+  };
   return (
     <>
       <div className="container-fluid body">
@@ -64,7 +68,7 @@ export default function Home() {
               </p>
               <p>
                 <ListChecks className="me-lg-2" />
-                Compeleted
+                <span className="d-none d-lg-inline">Compeleted</span>
               </p>
               <p>
                 <Plus className="me-lg-2" />
@@ -72,7 +76,7 @@ export default function Home() {
               </p>
             </div>
             <div>
-              <p onClick={() => navigate("/")}>
+              <p onClick={handleLogout}>
                 <LogOut className="me-lg-2" />
                 <span className="d-none d-lg-inline">Logout</span>
               </p>
@@ -80,7 +84,7 @@ export default function Home() {
           </aside>
           <section className="col-10 col-lg-9 py-5">
             <div className="todos">
-              {todos ? (
+              {todos.length ? (
                 todos.map((toDo: ToDo) => {
                   return (
                     <User
@@ -92,7 +96,10 @@ export default function Home() {
                   );
                 })
               ) : (
-                <Annoyed />
+                <h3 className="d-flex align-items-center">
+                  <Annoyed className="me-4" />
+                  No Tasks Founded
+                </h3>
               )}
             </div>
           </section>

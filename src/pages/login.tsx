@@ -5,6 +5,7 @@ import { Mail, Lock } from "lucide-react";
 import "../components/login/index.scss";
 import Logo from "../components/logo";
 import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
 interface UserValues {
   email: string;
   password: string;
@@ -13,12 +14,11 @@ const Login: React.FC = () => {
   const [submit, isSubmit] = useState(false);
   const navigate = useNavigate();
 
-  const fetchUsers = async () => {
-    const response = await fetch("http://localhost:3000/users");
-    if (!response.ok) {
-      throw new Error("Failed to fetch users");
-    }
-    return response.json();
+  const isEmailExist = async (email: string) => {
+    const { data } = await axios.get(
+      `http://localhost:3000/users?email=${email}`
+    );
+    return data;
   };
 
   const validationSchema = Yup.object().shape({
@@ -29,29 +29,22 @@ const Login: React.FC = () => {
 
   const handleSubmit = async (values: UserValues) => {
     try {
-      const users = await fetchUsers();
-      console.log(users);
+      const emailIsFound = await isEmailExist(values.email);
+      console.log(emailIsFound);
 
-      const user = users.find(
-        (user: { email: string }) => user.email === values.email
-      );
-      if (user) {
-        console.log(user);
-
-        if (user.password !== values.password) {
-          console.log("false pass");
-
-          isSubmit(false);
+      if (emailIsFound.length > 0) {
+        if (emailIsFound[0].password !== values.password) {
           formik.errors.password = "Incorrect Password";
           return;
         }
+        localStorage.setItem("id", emailIsFound[0].id);
+        navigate("/Home");
       } else {
-        isSubmit(false);
-        formik.errors.email = "Incorrect Email";
-        return;
+        formik.errors.email = "Email Not Exist";
       }
-      console.log(values);
-      navigate(`/Home/${user.id}`);
+      console.log("hello");
+
+      // navigate(`/Home/${user.id}`);
     } catch (error) {
       isSubmit(false);
       console.log(error);

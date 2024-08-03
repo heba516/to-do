@@ -49,14 +49,6 @@
       "password": "123456",
       "confirmPassword": "123456",
       "toDos": []
-    },
-    {
-      "id": "dff0",
-      "userName": "lames",
-      "email": "lames@gmail.com",
-      "password": "lam123",
-      "confirmPassword": "lam123",
-      "toDos": []
     }
   ]
 }

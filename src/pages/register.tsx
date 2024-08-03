@@ -19,11 +19,16 @@ const Register: React.FC = () => {
   const [submit, isSubmit] = useState(false);
   const navigate = useNavigate();
 
-  const fetchUsers = async () => {
-    const { data } = await axios.get("http://localhost:3000/users");
-    return data;
+  const isuserNameExist = async (usrName: string) => {
+    const res = await axios.get(
+      `http://localhost:3000/users?userName=${usrName}`
+    );
+    return res.data.length > 0;
   };
-
+  const isEmailExist = async (email: string) => {
+    const res = await axios.get(`http://localhost:3000/users?email=${email}`);
+    return res.data.length > 0;
+  };
   const validationSchema = Yup.object().shape({
     userName: Yup.string()
       .min(3, "Name must be minimum 3")
@@ -50,14 +55,8 @@ const Register: React.FC = () => {
 
   const handleSubmit = async (values: UserValues) => {
     try {
-      const users = await fetchUsers();
-
-      const nameIsFound = users.find(
-        (user: UserValues) => user.userName === values.userName
-      );
-      const emailIsFound = users.find(
-        (user: UserValues) => user.email === values.email
-      );
+      const nameIsFound = await isuserNameExist(values.userName);
+      const emailIsFound = await isEmailExist(values.email);
 
       if (nameIsFound) {
         formik.errors.userName = "UserName Already Exists";
@@ -69,7 +68,8 @@ const Register: React.FC = () => {
 
       if (!nameIsFound && !emailIsFound) {
         await axios.post("http://localhost:3000/users", values).then((res) => {
-          navigate(`/Home/${res.data.id}`);
+          localStorage.setItem("id", res.data.id);
+          navigate(`/Home`);
         });
       }
     } catch (error) {
