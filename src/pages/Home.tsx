@@ -1,11 +1,11 @@
 import { Annoyed, LayoutList, ListChecks, LogOut, Plus } from "lucide-react";
-import Logo from "../logo";
-import "./index.scss";
+import Logo from "../components/logo";
+import "../components/home/index.scss";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
-import User from "./user";
-import ToDo from "./userData";
+import User from "../components/home/user";
+import ToDo from "../components/home/userData";
 
 export default function Home() {
   const [todos, setTodos] = useState<ToDo[]>([]);

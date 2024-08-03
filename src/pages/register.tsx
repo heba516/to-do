@@ -1,5 +1,5 @@
-import "./index.scss";
-import Logo from "../logo";
+import "../components/login/index.scss";
+import Logo from "../components/logo";
 import { useState } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";

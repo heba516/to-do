@@ -2,8 +2,8 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useState } from "react";
 import { Mail, Lock } from "lucide-react";
-import "./index.scss";
-import Logo from "../logo";
+import "../components/login/index.scss";
+import Logo from "../components/logo";
 import { Link, useNavigate } from "react-router-dom";
 interface UserValues {
   email: string;
