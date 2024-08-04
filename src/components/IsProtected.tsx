@@ -8,7 +8,6 @@ interface IProps {
 }
 export default function IsProtected({ path, isAuth, children }: IProps) {
   const id = localStorage.getItem("id");
-  console.log(id);
 
   if (isAuth) {
     return id ? <>{children}</> : <Navigate to={path} />;

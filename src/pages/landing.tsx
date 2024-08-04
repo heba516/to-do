@@ -10,6 +10,7 @@ export default function Landing() {
       window.scrollTo({ top: window.innerHeight, behavior: "smooth" });
     }, 1000);
   });
+  localStorage.removeItem("id");
   return (
     <>
       <div className="start">

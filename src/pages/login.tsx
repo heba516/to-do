@@ -38,6 +38,7 @@ const Login: React.FC = () => {
           return;
         }
         localStorage.setItem("id", emailIsFound[0].id);
+
         navigate("/Home");
       } else {
         formik.errors.email = "Email Not Exist";

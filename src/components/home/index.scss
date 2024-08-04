@@ -3,6 +3,10 @@
 .body {
     color: #69665C;
     header {
+        position: fixed;
+        background-color: white;
+        z-index: 900;
+        width: 100%;
         @include flexCenter;
             justify-content: space-between;
         h2 {
@@ -14,12 +18,16 @@
             
         }
     }
+    aside, section {
+        margin-top: 50px;
+    }
 }
 aside {
     height: 88vh;
-    position: sticky;
+    position: fixed;
 
     p {
+        cursor: pointer;
         @include flexCenter;
         justify-content: start;
         background-color: #FFF9DE;
@@ -42,8 +50,9 @@ aside {
 
 
 section {
+    margin-left: auto;
     .todos {
-        div {
+        .todo {
             background-color: #FFF9DE;
             border-radius: .8rem;
             -webkit-border-radius: .8rem;
@@ -51,19 +60,84 @@ section {
             -ms-border-radius: .8rem;
             -o-border-radius: .8rem;
             svg.lucide-square-check-big
-{
+            {
                 color: #80be75;
             }
             svg.lucide-x {
                 color: rgb(224, 57, 57);
             }
+            @media (min-width: 768px) {                
+                >div {
+                    width: 33%;
+                }
+                >div:nth-child(2) {
+                    text-align: center;
+                }
+                >div:last-of-type {
+                    text-align: end;
+                }
+            }
+        }
+    }
+}
+
+
+.popup-content {
+    
+    padding: 3rem;
+    border-radius: 1rem;
+    -webkit-border-radius: 1rem;
+    -moz-border-radius: 1rem;
+    -ms-border-radius: 1rem;
+    -o-border-radius: 1rem;
+    @media (max-width: 991px) {
+            & {
+                width: 95%;
+            }
+        }
+
+    .popup {
+        form {
+            label {
+                font-size: 1.3rem;
+                font-weight: 500;
+            }
             input {
-                background-color: transparent;
+                display: block;
+                width: 100%;
+                margin: .5rem auto ;
+                padding: .8rem 1rem;
+                background-color: #f3f2f2;
                 border: none;
+                border-radius: 1rem;
+                -webkit-border-radius: 1rem;
+                -moz-border-radius: 1rem;
+                -ms-border-radius: 1rem;
+                -o-border-radius: 1rem;
                 &:focus {
                     outline: none;
                 }
             }
+            .submit {
+                padding: .8rem 2.5rem;
+            }
         }
+        .close {
+            position: absolute;
+            top: .5rem;
+            right: 2rem;
+            font-size: 1.8rem;
+            color: rgb(213, 41, 41);
+            background-color: transparent;
+            border-radius: 50%;
+            border: none;
+            -webkit-border-radius: 50%;
+            -moz-border-radius: 50%;
+            -ms-border-radius: 50%;
+            -o-border-radius: 50%;
+            &:focus {
+                outline: none;
+            }
+}
     }
 }
