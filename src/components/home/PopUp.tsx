@@ -22,14 +22,11 @@ export default function PopUp({
     todo: yup.string().required("Add New Task"),
     date: yup.string().required("Due Date"),
   });
-  const handleSubmit = async (values: ToDo) => {
-    console.log(toDo.id);
-    console.log(values);
+  const handleSubmit = (values: ToDo) => {
     if (handleAdd) {
-      console.log("add");
-      await handleAdd(values);
+      handleAdd(values);
     } else if (handleEdit) {
-      await handleEdit(toDo.id || "", values);
+      handleEdit(toDo.id, values);
     }
     onClose();
     formik.resetForm();
