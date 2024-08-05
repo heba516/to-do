@@ -20,7 +20,7 @@ export default function PopUp({
 }: IProps) {
   const validationSchema = yup.object().shape({
     todo: yup.string().required("Add New Task"),
-    date: yup.string().required("Due Date"),
+    date: yup.string().required("Add Date"),
   });
   const handleSubmit = (values: ToDo) => {
     if (handleAdd) {
@@ -36,6 +36,7 @@ export default function PopUp({
       todo: toDo.todo,
       date: toDo.date,
       id: toDo.id,
+      completed: toDo.completed,
     },
     validationSchema,
     onSubmit: handleSubmit,
@@ -63,7 +64,7 @@ export default function PopUp({
                 <div className="error">{formik.errors.todo}</div>
               )}
               <label className="mt-4" htmlFor="date">
-                Date
+                Due Date
               </label>
               <input
                 type="date"

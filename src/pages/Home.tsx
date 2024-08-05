@@ -51,7 +51,12 @@ export default function Home() {
   const handleEdit = async (todoID: string, values: ToDo) => {
     const updatedToDo = todos.map((toDo: ToDo) => {
       if (toDo.id === todoID) {
-        return { ...toDo, todo: values.todo, date: values.date };
+        return {
+          ...toDo,
+          todo: values.todo,
+          date: values.date,
+          completed: values.completed,
+        };
       }
       return toDo;
     });
@@ -104,7 +109,7 @@ export default function Home() {
               <PopUp
                 open={isAddPopupOpen}
                 onClose={closeAddPopup}
-                toDo={{ todo: "", date: "", id: "" }}
+                toDo={{ todo: "", date: "", id: "", completed: false }}
                 handleAdd={handleAdd}
               />
             </div>
@@ -127,10 +132,17 @@ export default function Home() {
                       <p
                         className="mb-0 me-4"
                         onClick={() => {
+                          handleEdit(toDo.id, {
+                            ...toDo,
+                            completed: !toDo.completed,
+                          });
                           setTodos(
                             todos.map((td) =>
                               td.id === toDo.id
-                                ? { ...td, completed: !td.completed }
+                                ? {
+                                    ...td,
+                                    completed: !td.completed,
+                                  }
                                 : td
                             )
                           );
