@@ -72,16 +72,25 @@
       "confirmPassword": "lames123",
       "toDos": [
         {
-          "todo": "sorting",
-          "date": "2024-08-21",
-          "id": "286817e9-147c-4340-99c9-c150cf78a88b",
-          "completed": false
+          "todo": "show users",
+          "date": "2024-08-16",
+          "id": "148f2309-766a-4b2b-810c-a192be6e7274",
+          "completed": false,
+          "priority": "high"
         },
         {
-          "todo": "new task",
-          "date": "2024-08-01",
-          "id": "58146f3a-21bd-4f2c-91c1-f027daa0869a",
-          "completed": false
+          "todo": "add user",
+          "date": "2024-08-18",
+          "id": "6d409aa2-fddc-4b13-99cf-baf0e4da2a23",
+          "completed": false,
+          "priority": "med"
+        },
+        {
+          "todo": "delete user",
+          "date": "2024-08-10",
+          "id": "a0698663-0a7c-4dd5-8dba-5cf4bac8b484",
+          "completed": false,
+          "priority": "low"
         }
       ]
     }

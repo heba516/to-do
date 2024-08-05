@@ -21,6 +21,7 @@ export default function PopUp({
   const validationSchema = yup.object().shape({
     todo: yup.string().required("Add New Task"),
     date: yup.string().required("Add Date"),
+    priority: yup.string().required("Priority is required"),
   });
   const handleSubmit = (values: ToDo) => {
     if (handleAdd) {
@@ -37,6 +38,7 @@ export default function PopUp({
       date: toDo.date,
       id: toDo.id,
       completed: toDo.completed,
+      priority: toDo.priority,
     },
     validationSchema,
     onSubmit: handleSubmit,
@@ -76,6 +78,24 @@ export default function PopUp({
               {formik.touched.date && formik.errors.date && (
                 <div className="error">{formik.errors.date}</div>
               )}
+              <label className="mt-4 mb-2">Priority</label>
+              <div className="priority d-flex align-items-center mb-5">
+                <div
+                  tabIndex={0}
+                  onClick={() => (formik.values.priority = "high")}
+                  className="high"
+                ></div>
+                <div
+                  tabIndex={0}
+                  onClick={() => (formik.values.priority = "med")}
+                  className="med mx-4"
+                ></div>
+                <div
+                  tabIndex={0}
+                  onClick={() => (formik.values.priority = "low")}
+                  className="low"
+                ></div>
+              </div>
               <button type="submit" className="submit">
                 Submit
               </button>

@@ -1,0 +1,48 @@
+.start {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-color: #FFF9DE;
+}
+.start h1 {
+  position: relative;
+  font-size: 6em;
+  color: #69665C;
+}
+.start h1::before {
+  content: "";
+  position: absolute;
+  top: 60%;
+  left: 0;
+  height: 0.25rem;
+  background-color: #69665C;
+  animation: LR 0.8s forwards;
+  -webkit-animation: LR 0.8s forwards;
+}
+
+.landing {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  text-align: center;
+  justify-content: space-around;
+}
+.landing p {
+  line-height: 1.8;
+  letter-spacing: 1px;
+  margin: 2rem;
+}
+.landing img {
+  max-width: 50%;
+}
+
+@keyframes LR {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}/*# sourceMappingURL=index.css.map */

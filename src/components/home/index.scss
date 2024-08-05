@@ -127,7 +127,7 @@ section {
             top: .5rem;
             right: 2rem;
             font-size: 1.8rem;
-            color: rgb(213, 41, 41);
+            color: rgb(224, 57, 57);
             background-color: transparent;
             border-radius: 50%;
             border: none;
@@ -139,5 +139,33 @@ section {
                 outline: none;
             }
 }
+    }
+}
+
+
+
+.priority {
+    div {
+        cursor: pointer;
+        width: 2rem;
+        height: 2rem;
+        border-radius: 50%;
+        outline: none;
+        -webkit-border-radius: 50%;
+        -moz-border-radius: 50%;
+        -ms-border-radius: 50%;
+        -o-border-radius: 50%;
+        &:focus {
+            outline: 2px solid #69665C;
+        }
+}
+    .high {
+        background-color: rgb(224, 57, 57);
+    }
+    .med {
+        background-color: rgb(249, 228, 0);
+    }
+    .low {
+        background-color: #80bc75;
     }
 }

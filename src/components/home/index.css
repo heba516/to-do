@@ -1,0 +1,153 @@
+.body {
+  color: #69665C;
+}
+.body header {
+  position: fixed;
+  background-color: white;
+  z-index: 900;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  justify-content: space-between;
+}
+.body header h2 {
+  font-size: 3.5rem;
+}
+.body aside, .body section {
+  margin-top: 50px;
+}
+
+aside {
+  height: 88vh;
+  position: fixed;
+}
+aside p {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  justify-content: start;
+  background-color: #FFF9DE;
+  padding: 0.8rem 1rem;
+  border-radius: 0.8rem;
+  -webkit-border-radius: 0.8rem;
+  -moz-border-radius: 0.8rem;
+  -ms-border-radius: 0.8rem;
+  -o-border-radius: 0.8rem;
+}
+aside p svg {
+  width: 1.3em;
+}
+@media (max-width: 991px) {
+  aside p {
+    text-align: center;
+    display: block;
+  }
+}
+
+section {
+  margin-left: auto;
+}
+section .todos .todo {
+  background-color: #FFF9DE;
+  border-radius: 0.8rem;
+  -webkit-border-radius: 0.8rem;
+  -moz-border-radius: 0.8rem;
+  -ms-border-radius: 0.8rem;
+  -o-border-radius: 0.8rem;
+}
+section .todos .todo svg.lucide-square-check-big {
+  color: #80be75;
+}
+section .todos .todo svg.lucide-x {
+  color: rgb(224, 57, 57);
+}
+@media (min-width: 768px) {
+  section .todos .todo > div {
+    width: 33%;
+  }
+  section .todos .todo > div:nth-child(2) {
+    text-align: center;
+  }
+  section .todos .todo > div:last-of-type {
+    text-align: end;
+  }
+}
+
+.popup-content {
+  padding: 3rem;
+  border-radius: 1rem;
+  -webkit-border-radius: 1rem;
+  -moz-border-radius: 1rem;
+  -ms-border-radius: 1rem;
+  -o-border-radius: 1rem;
+}
+@media (max-width: 991px) {
+  .popup-content {
+    width: 95%;
+  }
+}
+.popup-content .popup form label {
+  font-size: 1.3rem;
+  font-weight: 500;
+}
+.popup-content .popup form input {
+  display: block;
+  width: 100%;
+  margin: 0.5rem auto;
+  padding: 0.8rem 1rem;
+  background-color: #f3f2f2;
+  border: none;
+  border-radius: 1rem;
+  -webkit-border-radius: 1rem;
+  -moz-border-radius: 1rem;
+  -ms-border-radius: 1rem;
+  -o-border-radius: 1rem;
+}
+.popup-content .popup form input:focus {
+  outline: none;
+}
+.popup-content .popup form .submit {
+  padding: 0.8rem 2.5rem;
+}
+.popup-content .popup .close {
+  position: absolute;
+  top: 0.5rem;
+  right: 2rem;
+  font-size: 1.8rem;
+  color: rgb(224, 57, 57);
+  background-color: transparent;
+  border-radius: 50%;
+  border: none;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  -ms-border-radius: 50%;
+  -o-border-radius: 50%;
+}
+.popup-content .popup .close:focus {
+  outline: none;
+}
+
+.priority div {
+  cursor: pointer;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  -ms-border-radius: 50%;
+  -o-border-radius: 50%;
+}
+.priority div:focus {
+  border: 1px solid #69665C;
+}
+.priority .high {
+  background-color: rgb(224, 57, 57);
+}
+.priority .med {
+  background-color: rgb(249, 228, 0);
+}
+.priority .low {
+  background-color: #80bc75;
+}/*# sourceMappingURL=index.css.map */

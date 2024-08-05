@@ -56,10 +56,13 @@ export default function Home() {
           todo: values.todo,
           date: values.date,
           completed: values.completed,
+          priority: values.priority,
         };
       }
+
       return toDo;
     });
+    console.log(updatedToDo);
 
     setTodos(updatedToDo);
     await axios.patch(`http://localhost:3000/users/${id}`, {
@@ -109,7 +112,13 @@ export default function Home() {
               <PopUp
                 open={isAddPopupOpen}
                 onClose={closeAddPopup}
-                toDo={{ todo: "", date: "", id: "", completed: false }}
+                toDo={{
+                  todo: "",
+                  date: "",
+                  id: "",
+                  completed: false,
+                  priority: "",
+                }}
                 handleAdd={handleAdd}
               />
             </div>
