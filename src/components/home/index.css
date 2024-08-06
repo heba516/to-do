@@ -39,6 +39,15 @@ aside p {
 aside p svg {
   width: 1.3em;
 }
+aside p select {
+  width: 100%;
+  color: #69665C;
+  border: none;
+  background-color: transparent;
+}
+aside p select:focus {
+  outline: none;
+}
 @media (max-width: 991px) {
   aside p {
     text-align: center;
@@ -57,10 +66,23 @@ section .todos .todo {
   -ms-border-radius: 0.8rem;
   -o-border-radius: 0.8rem;
 }
+section .todos .todo div, section .todos .todo svg {
+  cursor: default;
+}
+section .todos .todo svg {
+  cursor: pointer;
+}
+section .todos .todo svg:hover {
+  transform: rotateX(25deg);
+  -webkit-transform: rotateX(25deg);
+  -moz-transform: rotateX(25deg);
+  -ms-transform: rotateX(25deg);
+  -o-transform: rotateX(25deg);
+}
 section .todos .todo svg.lucide-square-check-big {
   color: #80be75;
 }
-section .todos .todo svg.lucide-x {
+section .todos .todo svg.lucide-trash {
   color: rgb(224, 57, 57);
 }
 @media (min-width: 768px) {
@@ -134,13 +156,14 @@ section .todos .todo svg.lucide-x {
   width: 2rem;
   height: 2rem;
   border-radius: 50%;
+  outline: none;
   -webkit-border-radius: 50%;
   -moz-border-radius: 50%;
   -ms-border-radius: 50%;
   -o-border-radius: 50%;
 }
 .priority div:focus {
-  border: 1px solid #69665C;
+  outline: 2px solid #69665C;
 }
 .priority .high {
   background-color: rgb(224, 57, 57);
@@ -150,4 +173,21 @@ section .todos .todo svg.lucide-x {
 }
 .priority .low {
   background-color: #80bc75;
+}
+
+/* Tooltip.scss */
+#my-tooltip {
+  width: -moz-fit-content !important;
+  width: fit-content !important;
+  background-color: #69665C !important;
+  border-radius: 4px !important;
+  -webkit-border-radius: 4px !important;
+  -moz-border-radius: 4px !important;
+  -ms-border-radius: 4px !important;
+  -o-border-radius: 4px !important;
+}
+@media (min-width: 992px) {
+  #my-tooltip {
+    left: 330px !important;
+  }
 }/*# sourceMappingURL=index.css.map */

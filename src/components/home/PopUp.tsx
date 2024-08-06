@@ -21,6 +21,7 @@ export default function PopUp({
   const validationSchema = yup.object().shape({
     todo: yup.string().required("Add New Task"),
     date: yup.string().required("Add Date"),
+    description: yup.string().required("Add Task Description"),
     priority: yup.string().required("Priority is required"),
   });
   const handleSubmit = (values: ToDo) => {
@@ -34,9 +35,10 @@ export default function PopUp({
   };
   const formik = useFormik({
     initialValues: {
+      id: toDo.id,
       todo: toDo.todo,
       date: toDo.date,
-      id: toDo.id,
+      description: toDo.description,
       completed: toDo.completed,
       priority: toDo.priority,
     },
@@ -65,6 +67,23 @@ export default function PopUp({
               {formik.touched.todo && formik.errors.todo && (
                 <div className="error">{formik.errors.todo}</div>
               )}
+
+              <label className="mt-4" htmlFor="dec">
+                Description
+              </label>
+              <input
+                type="text"
+                id="description"
+                name="description"
+                style={{ height: "5rem" }}
+                value={formik.values.description}
+                onChange={formik.handleChange}
+                placeholder="Add Description"
+              />
+              {formik.touched.description && formik.errors.description && (
+                <div className="error">{formik.errors.description}</div>
+              )}
+
               <label className="mt-4" htmlFor="date">
                 Due Date
               </label>
@@ -82,16 +101,31 @@ export default function PopUp({
               <div className="priority d-flex align-items-center mb-5">
                 <div
                   tabIndex={0}
+                  style={
+                    formik.values.priority === "high"
+                      ? { outline: "2px solid #69665C" }
+                      : { outline: "none" }
+                  }
                   onClick={() => (formik.values.priority = "high")}
                   className="high"
                 ></div>
                 <div
                   tabIndex={0}
+                  style={
+                    formik.values.priority === "med"
+                      ? { outline: "2px solid #69665C" }
+                      : { outline: "none" }
+                  }
                   onClick={() => (formik.values.priority = "med")}
                   className="med mx-4"
                 ></div>
                 <div
                   tabIndex={0}
+                  style={
+                    formik.values.priority === "low"
+                      ? { outline: "2px solid #69665C" }
+                      : { outline: "none" }
+                  }
                   onClick={() => (formik.values.priority = "low")}
                   className="low"
                 ></div>

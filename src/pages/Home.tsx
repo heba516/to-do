@@ -1,22 +1,29 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { SquareCheckBig, Square, X, Pencil, ArrowUpDown } from "lucide-react";
+import {
+  SquareCheckBig,
+  Square,
+  Trash,
+  Pencil,
+  ArrowUpDown,
+} from "lucide-react";
 import { Annoyed, LayoutList, LogOut, Plus } from "lucide-react";
 import { v4 } from "uuid";
 import axios from "axios";
-import "reactjs-popup/dist/index.css";
+import { Tooltip } from "react-tooltip";
 
 import Logo from "../components/logo";
 import ToDo from "../components/home/userData";
 import "../components/home/index.scss";
 import PopUp from "../components/home/PopUp";
+import "reactjs-popup/dist/index.css";
 
 export default function Home() {
   const [todos, setTodos] = useState<ToDo[]>([]);
-  const [isAddPopupOpen, setIsAddPopupOpen] = useState(false);
-  const [isEditPopupOpen, setIsEditPopupOpen] = useState(false);
+  const [isAddPopupOpen, setIsAddPopupOpen] = useState<boolean>(false);
+  const [isEditPopupOpen, setIsEditPopupOpen] = useState<boolean>(false);
   const [currentTodo, setCurrentTodo] = useState<ToDo | null>(null);
-  // const [isSortedByDate, setIsSortedByDate] = useState(false);
+  const [isSortedByDate, setIsSortedByDate] = useState<boolean>(false);
 
   const navigate = useNavigate();
   const id = localStorage.getItem("id");
@@ -30,20 +37,30 @@ export default function Home() {
     getUsers();
   }, [id]);
 
-  // const sortByDate = () => {
-  //   const sortedArr = todos.map((todo) => {
-  //     return todo.date;
-  //   });
-  //   // setIsSortedByDate(true);
-  //   return sortedArr.sort();
-  // };
-  // console.log(sortByDate());
+  const handleSortChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    console.log(isSortedByDate);
+    const { value } = event.target;
+    if (value === "date") {
+      const sorted = todos.sort((a, b) => (a.date > b.date ? 1 : -1));
+      setTodos(sorted);
+      setIsSortedByDate(true);
+    } else if (value === "priority") {
+      const priorityLevels = ["high", "med", "low"];
+      const sorted = todos.sort((a, b) => {
+        const indexA = priorityLevels.indexOf(a.priority);
+        const indexB = priorityLevels.indexOf(b.priority);
+
+        return indexA - indexB;
+      });
+      setTodos(sorted);
+      setIsSortedByDate(false);
+    }
+  };
 
   const handleAdd = async (values: ToDo) => {
     const newTodo = { ...values, id: v4() };
     const updatedTodos = [...todos, newTodo];
     setTodos(updatedTodos);
-
     await axios.patch(`http://localhost:3000/users/${id}`, {
       toDos: updatedTodos,
     });
@@ -67,6 +84,7 @@ export default function Home() {
           date: values.date,
           completed: values.completed,
           priority: values.priority,
+          description: values.description,
         };
       }
 
@@ -111,9 +129,10 @@ export default function Home() {
                 <span className="d-none d-lg-inline">All Tasks</span>
               </p>
               <p>
-                {/* <ListChecks className="me-lg-2" /> */}
-                <ArrowUpDown className="me-lg-2" />
-                <select className="d-none d-lg-inline">
+                <label htmlFor="sort" className="d-block d-lg-inline">
+                  <ArrowUpDown className="me-lg-2" />
+                </label>
+                <select name="sort" id="sort" onChange={handleSortChange}>
                   <option value="sort">Sort</option>
                   <option value="date">Date</option>
                   <option value="priority">Priority</option>
@@ -128,11 +147,12 @@ export default function Home() {
                 open={isAddPopupOpen}
                 onClose={closeAddPopup}
                 toDo={{
+                  id: "",
                   todo: "",
                   date: "",
-                  id: "",
-                  completed: false,
+                  description: "",
                   priority: "",
+                  completed: false,
                 }}
                 handleAdd={handleAdd}
               />
@@ -148,13 +168,21 @@ export default function Home() {
             <div className="todos">
               {todos.length ? (
                 todos.map((toDo: ToDo) => (
-                  <div
-                    key={toDo.id}
-                    className="todo d-flex align-items-md-center justify-content-between flex-column flex-md-row p-3 mb-4"
-                  >
-                    <div className="d-flex align-items-center">
-                      <p
-                        className="mb-0 me-4"
+                  <div key={toDo.id}>
+                    <div
+                      style={
+                        toDo.priority === "high"
+                          ? { border: "2px solid rgb(224, 57, 57)" }
+                          : toDo.priority === "med"
+                          ? { border: "2px solid rgb(249, 228, 0)" }
+                          : { border: "2px solid #80bc75" }
+                      }
+                      data-tooltip-id="my-tooltip"
+                      data-tooltip-content={toDo.description}
+                      className="todo d-flex align-items-md-center justify-content-between flex-column flex-md-row p-3 mb-4"
+                    >
+                      <div
+                        className="d-flex align-items-center mb-0 me-4"
                         onClick={() => {
                           handleEdit(toDo.id, {
                             ...toDo,
@@ -178,16 +206,17 @@ export default function Home() {
                           <Square className="me-3" />
                         )}
                         {toDo.todo}
-                      </p>
+                      </div>
+                      <div className="my-4 my-md-0">{toDo.date}</div>
+                      <div className="actions">
+                        <Pencil
+                          className="me-5"
+                          onClick={() => openEditPopup(toDo)}
+                        />
+                        <Trash onClick={() => handleDelete(toDo.id)} />
+                      </div>
                     </div>
-                    <div className="my-4 my-md-0">{toDo.date}</div>
-                    <div className="actions">
-                      <Pencil
-                        className="me-5"
-                        onClick={() => openEditPopup(toDo)}
-                      />
-                      <X onClick={() => handleDelete(toDo.id)} />
-                    </div>
+                    <Tooltip id="my-tooltip" place="left" />
                   </div>
                 ))
               ) : (

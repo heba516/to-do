@@ -70,11 +70,25 @@ section {
             -moz-border-radius: .8rem;
             -ms-border-radius: .8rem;
             -o-border-radius: .8rem;
+            div, svg {
+                cursor:default;
+            }
+            svg {
+                cursor: pointer;
+
+                &:hover{
+                    transform: rotateX(25deg);
+                    -webkit-transform: rotateX(25deg);
+                    -moz-transform: rotateX(25deg);
+                    -ms-transform: rotateX(25deg);
+                    -o-transform: rotateX(25deg);
+}
+            }
             svg.lucide-square-check-big
             {
                 color: #80be75;
             }
-            svg.lucide-x {
+            svg.lucide-trash:hover {
                 color: rgb(224, 57, 57);
             }
             @media (min-width: 768px) {                
@@ -94,18 +108,19 @@ section {
 
 
 .popup-content {
-    
-    padding: 3rem;
+
+    padding: 3rem !important;
     border-radius: 1rem;
     -webkit-border-radius: 1rem;
     -moz-border-radius: 1rem;
     -ms-border-radius: 1rem;
     -o-border-radius: 1rem;
+
     @media (max-width: 991px) {
-            & {
-                width: 95%;
-            }
+        & {
+            width: 95% !important;
         }
+    }
 
     .popup {
         form {
@@ -113,10 +128,11 @@ section {
                 font-size: 1.3rem;
                 font-weight: 500;
             }
+
             input {
                 display: block;
                 width: 100%;
-                margin: .5rem auto ;
+                margin: .5rem auto;
                 padding: .8rem 1rem;
                 background-color: #f3f2f2;
                 border: none;
@@ -125,14 +141,17 @@ section {
                 -moz-border-radius: 1rem;
                 -ms-border-radius: 1rem;
                 -o-border-radius: 1rem;
+
                 &:focus {
                     outline: none;
                 }
             }
+
             .submit {
                 padding: .8rem 2.5rem;
             }
         }
+
         .close {
             position: absolute;
             top: .5rem;
@@ -146,13 +165,13 @@ section {
             -moz-border-radius: 50%;
             -ms-border-radius: 50%;
             -o-border-radius: 50%;
+
             &:focus {
                 outline: none;
             }
-}
+        }
     }
 }
-
 
 
 .priority {
@@ -167,7 +186,7 @@ section {
         -ms-border-radius: 50%;
         -o-border-radius: 50%;
         &:focus {
-            outline: 2px solid #69665C;
+            outline: 2px solid #69665C !important;
         }
 }
     .high {
@@ -179,4 +198,24 @@ section {
     .low {
         background-color: #80bc75;
     }
+}
+
+
+#my-tooltip {    
+    width: fit-content !important;
+    background-color: #69665C !important;
+    border-radius: 4px !important;
+    -webkit-border-radius: 4px !important;
+    -moz-border-radius: 4px !important;
+    -ms-border-radius: 4px !important;
+    -o-border-radius: 4px !important;
+
+    @media (min-width: 992px) {
+        // left: 360px !important;
+    }
+}
+
+
+.dropdown-menu {
+
 }

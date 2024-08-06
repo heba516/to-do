@@ -36,16 +36,10 @@
       "password": "heba123",
       "toDos": [
         {
-          "todo": "add new user",
-          "date": "2024-08-10",
-          "id": "4fd02f81-781d-460b-8c5f-47b0aabd5efa",
-          "completed": false,
-          "priority": "high"
-        },
-        {
-          "todo": "delete user",
-          "date": "2024-09-13",
-          "id": "4864fbdd-7575-4ba2-bca5-82c789d43c9e",
+          "id": "15a02cbd-6258-4705-a524-f2e0ba7da8d1",
+          "todo": "test sorting",
+          "date": "2024-07-18",
+          "description": "testing",
           "completed": false,
           "priority": "med"
         },
@@ -54,14 +48,40 @@
           "date": "2024-08-08",
           "id": "29701391-ceef-4c0d-960e-98a98c74f7ca",
           "completed": false,
-          "priority": "low"
+          "priority": "low",
+          "description": "updating user"
+        },
+        {
+          "todo": "add new user",
+          "date": "2024-08-06",
+          "id": "4fd02f81-781d-460b-8c5f-47b0aabd5efa",
+          "completed": false,
+          "priority": "high",
+          "description": "adding user"
+        },
+        {
+          "id": "0b4fe57c-146c-493f-aff1-bff3c65fffde",
+          "todo": "add desc",
+          "date": "2024-08-10",
+          "description": "description is added",
+          "completed": false,
+          "priority": "med"
         },
         {
           "todo": "sorting",
           "date": "2024-10-25",
           "id": "64156bb5-93a3-40ea-95fe-2aad2f3c9843",
           "completed": false,
-          "priority": "high"
+          "priority": "high",
+          "description": "sorting todos by date or priority"
+        },
+        {
+          "todo": "delete user",
+          "date": "2024-11-01",
+          "id": "4864fbdd-7575-4ba2-bca5-82c789d43c9e",
+          "completed": false,
+          "priority": "med",
+          "description": "deleting userr"
         }
       ]
     },
