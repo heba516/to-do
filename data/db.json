@@ -120,23 +120,6 @@
           "description": "deleting user"
         }
       ]
-    },
-    {
-      "id": "42c1",
-      "userName": "hebay",
-      "email": "hebay@gmail.com",
-      "password": "1234hy",
-      "confirmPassword": "1234hy",
-      "toDos": [
-        {
-          "id": "ddcbd19e-c561-4593-8799-736c9c614c94",
-          "todo": "good",
-          "date": "2024-08-09",
-          "description": "good",
-          "completed": false,
-          "priority": "med"
-        }
-      ]
     }
   ]
 }
