@@ -41,6 +41,17 @@ aside {
         svg {
             width: 1.3em;
         }
+
+        select {
+            width: 100%;
+            color: #69665C;
+            border: none;
+            background-color: transparent;
+            &:focus {
+                outline: none;
+            }
+
+        }
         @media (max-width: 991px) {
             text-align: center;
             display: block;

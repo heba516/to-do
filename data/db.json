@@ -7,34 +7,25 @@
       "password": "eman123",
       "toDos": [
         {
-          "todo": "heba",
-          "date": "2024-09-08",
-          "id": "ad21"
+          "todo": "update users",
+          "date": "2024-08-09",
+          "id": "4a7edca2-c966-4b1a-8894-f77f6775bcb9",
+          "completed": false,
+          "priority": "high"
         },
         {
-          "todo": "eman",
-          "date": "2024-09-08",
-          "id": "a121"
+          "todo": "add date",
+          "date": "2024-08-10",
+          "id": "b2466b93-7a26-40e3-8d14-969cc35531c6",
+          "completed": false,
+          "priority": "med"
         },
         {
-          "todo": "lames",
-          "date": "2024-09-08",
-          "id": "d121"
-        },
-        {
-          "todo": "hi",
-          "date": "2024-08-14",
-          "id": "ece01ada-6153-40f4-a3ec-7400337b44c2"
-        },
-        {
-          "todo": "boboo",
-          "date": "2024-08-30",
-          "id": "f8b7e33c-3247-43af-b1f4-f5bc64ea44d4"
-        },
-        {
-          "todo": "hello",
-          "date": "2024-09-01",
-          "id": "5d0db2fd-4577-4eb4-b11b-80c4fc850d40"
+          "todo": "add priority",
+          "date": "2024-08-02",
+          "id": "1416041d-a50d-459b-96fc-9bfd4f51f42c",
+          "completed": false,
+          "priority": "low"
         }
       ]
     },
@@ -45,24 +36,34 @@
       "password": "heba123",
       "toDos": [
         {
-          "todo": "good",
-          "date": "2024-09-08",
-          "id": "ad11"
+          "todo": "add new user",
+          "date": "2024-08-10",
+          "id": "4fd02f81-781d-460b-8c5f-47b0aabd5efa",
+          "completed": false,
+          "priority": "high"
         },
         {
-          "todo": "add new user",
-          "date": "2024-08-09",
-          "id": "9b06b290-d089-4d33-9f5d-f2383d8f3fed"
+          "todo": "delete user",
+          "date": "2024-09-13",
+          "id": "4864fbdd-7575-4ba2-bca5-82c789d43c9e",
+          "completed": false,
+          "priority": "med"
+        },
+        {
+          "todo": "update users",
+          "date": "2024-08-08",
+          "id": "29701391-ceef-4c0d-960e-98a98c74f7ca",
+          "completed": false,
+          "priority": "low"
+        },
+        {
+          "todo": "sorting",
+          "date": "2024-10-25",
+          "id": "64156bb5-93a3-40ea-95fe-2aad2f3c9843",
+          "completed": false,
+          "priority": "high"
         }
       ]
-    },
-    {
-      "id": "00b6",
-      "userName": "hebay",
-      "email": "bobo@gmail.com",
-      "password": "123456",
-      "confirmPassword": "123456",
-      "toDos": []
     },
     {
       "id": "8a4f",

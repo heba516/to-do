@@ -30,7 +30,6 @@ const Login: React.FC = () => {
   const handleSubmit = async (values: UserValues) => {
     try {
       const emailIsFound = await isEmailExist(values.email);
-      console.log(emailIsFound);
 
       if (emailIsFound.length > 0) {
         if (emailIsFound[0].password !== values.password) {
@@ -43,9 +42,6 @@ const Login: React.FC = () => {
       } else {
         formik.errors.email = "Email Not Exist";
       }
-      console.log("hello");
-
-      // navigate(`/Home/${user.id}`);
     } catch (error) {
       isSubmit(false);
       console.log(error);

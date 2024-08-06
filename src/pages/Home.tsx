@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { SquareCheckBig, Square, X, Pencil } from "lucide-react";
-import { Annoyed, LayoutList, ListChecks, LogOut, Plus } from "lucide-react";
+import { SquareCheckBig, Square, X, Pencil, ArrowUpDown } from "lucide-react";
+import { Annoyed, LayoutList, LogOut, Plus } from "lucide-react";
 import { v4 } from "uuid";
 import axios from "axios";
 import "reactjs-popup/dist/index.css";
@@ -16,6 +16,7 @@ export default function Home() {
   const [isAddPopupOpen, setIsAddPopupOpen] = useState(false);
   const [isEditPopupOpen, setIsEditPopupOpen] = useState(false);
   const [currentTodo, setCurrentTodo] = useState<ToDo | null>(null);
+  // const [isSortedByDate, setIsSortedByDate] = useState(false);
 
   const navigate = useNavigate();
   const id = localStorage.getItem("id");
@@ -28,6 +29,15 @@ export default function Home() {
 
     getUsers();
   }, [id]);
+
+  // const sortByDate = () => {
+  //   const sortedArr = todos.map((todo) => {
+  //     return todo.date;
+  //   });
+  //   // setIsSortedByDate(true);
+  //   return sortedArr.sort();
+  // };
+  // console.log(sortByDate());
 
   const handleAdd = async (values: ToDo) => {
     const newTodo = { ...values, id: v4() };
@@ -48,7 +58,6 @@ export default function Home() {
     });
   };
 
-  //
   const handleEdit = async (todoID: string, values: ToDo) => {
     const updatedToDo = todos.map((toDo: ToDo) => {
       if (toDo.id === todoID) {
@@ -63,7 +72,6 @@ export default function Home() {
 
       return toDo;
     });
-    console.log(updatedToDo);
 
     setTodos(updatedToDo);
     await axios.patch(`http://localhost:3000/users/${id}`, {
@@ -103,9 +111,15 @@ export default function Home() {
                 <span className="d-none d-lg-inline">All Tasks</span>
               </p>
               <p>
-                <ListChecks className="me-lg-2" />
-                <span className="d-none d-lg-inline">Completed</span>
+                {/* <ListChecks className="me-lg-2" /> */}
+                <ArrowUpDown className="me-lg-2" />
+                <select className="d-none d-lg-inline">
+                  <option value="sort">Sort</option>
+                  <option value="date">Date</option>
+                  <option value="priority">Priority</option>
+                </select>
               </p>
+
               <p onClick={openAddPopup}>
                 <Plus className="me-lg-2" />
                 <span className="d-none d-lg-inline">Add Task</span>
