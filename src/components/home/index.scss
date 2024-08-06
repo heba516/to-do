@@ -50,6 +50,9 @@ aside {
             &:focus {
                 outline: none;
             }
+            @media (max-width: 992px) {
+                width: 50%;
+            }
 
         }
         @media (max-width: 991px) {
@@ -109,7 +112,7 @@ section {
 
 .popup-content {
 
-    padding: 3rem !important;
+    padding: 2rem 3rem !important;
     border-radius: 1rem;
     -webkit-border-radius: 1rem;
     -moz-border-radius: 1rem;
@@ -151,7 +154,35 @@ section {
                 padding: .8rem 2.5rem;
             }
         }
+.priority {
+    div {
+        cursor: pointer;
+        width: 2rem;
+        height: 2rem;
+        border-radius: 50%;
+        outline: none;
+        -webkit-border-radius: 50%;
+        -moz-border-radius: 50%;
+        -ms-border-radius: 50%;
+        -o-border-radius: 50%;
 
+        &:focus {
+            outline: 2px solid #69665C !important;
+        }
+    }
+
+    .high {
+        background-color: rgb(224, 57, 57);
+    }
+
+    .med {
+        background-color: rgb(249, 228, 0);
+    }
+
+    .low {
+        background-color: #80bc75;
+    }
+}
         .close {
             position: absolute;
             top: .5rem;
@@ -174,31 +205,7 @@ section {
 }
 
 
-.priority {
-    div {
-        cursor: pointer;
-        width: 2rem;
-        height: 2rem;
-        border-radius: 50%;
-        outline: none;
-        -webkit-border-radius: 50%;
-        -moz-border-radius: 50%;
-        -ms-border-radius: 50%;
-        -o-border-radius: 50%;
-        &:focus {
-            outline: 2px solid #69665C !important;
-        }
-}
-    .high {
-        background-color: rgb(224, 57, 57);
-    }
-    .med {
-        background-color: rgb(249, 228, 0);
-    }
-    .low {
-        background-color: #80bc75;
-    }
-}
+
 
 
 #my-tooltip {    
@@ -211,11 +218,6 @@ section {
     -o-border-radius: 4px !important;
 
     @media (min-width: 992px) {
-        // left: 360px !important;
+        left: 450px !important;
     }
-}
-
-
-.dropdown-menu {
-
 }

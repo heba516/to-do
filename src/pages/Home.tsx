@@ -122,7 +122,7 @@ export default function Home() {
         </header>
 
         <div className="row p-1">
-          <aside className="col-2 col-lg-3 py-5 px-0 px-lg-5 d-flex justify-content-between flex-column">
+          <aside className="col-2 col-lg-3 pt-5 px-0 px-lg-5 d-flex justify-content-between flex-column">
             <div>
               <p>
                 <LayoutList className="me-lg-2" />
@@ -164,7 +164,7 @@ export default function Home() {
               </p>
             </div>
           </aside>
-          <section className="col-10 col-lg-9 py-5">
+          <section className="col-10 col-lg-9 py-5 pe-lg-5">
             <div className="todos">
               {todos.length ? (
                 todos.map((toDo: ToDo) => (
@@ -177,11 +177,11 @@ export default function Home() {
                           ? { border: "2px solid rgb(249, 228, 0)" }
                           : { border: "2px solid #80bc75" }
                       }
-                      data-tooltip-id="my-tooltip"
-                      data-tooltip-content={toDo.description}
                       className="todo d-flex align-items-md-center justify-content-between flex-column flex-md-row p-3 mb-4"
                     >
                       <div
+                        data-tooltip-id="my-tooltip"
+                        data-tooltip-content={toDo.description}
                         className="d-flex align-items-center mb-0 me-4"
                         onClick={() => {
                           handleEdit(toDo.id, {
@@ -216,7 +216,7 @@ export default function Home() {
                         <Trash onClick={() => handleDelete(toDo.id)} />
                       </div>
                     </div>
-                    <Tooltip id="my-tooltip" place="left" />
+                    <Tooltip id="my-tooltip" place="bottom" />
                   </div>
                 ))
               ) : (

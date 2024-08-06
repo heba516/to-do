@@ -22,7 +22,7 @@ export default function PopUp({
     todo: yup.string().required("Add New Task"),
     date: yup.string().required("Add Date"),
     description: yup.string().required("Add Task Description"),
-    priority: yup.string().required("Priority is required"),
+    priority: yup.string().required("what is priority of your task ?"),
   });
   const handleSubmit = (values: ToDo) => {
     if (handleAdd) {
@@ -50,7 +50,13 @@ export default function PopUp({
     <Popup open={open} modal nested onClose={onClose}>
       {
         <div className="popup">
-          <button className="close" onClick={onClose}>
+          <button
+            className="close"
+            onClick={() => {
+              onClose();
+              formik.resetForm();
+            }}
+          >
             &times;
           </button>
           <div className="content">
@@ -68,7 +74,7 @@ export default function PopUp({
                 <div className="error">{formik.errors.todo}</div>
               )}
 
-              <label className="mt-4" htmlFor="dec">
+              <label className="mt-2" htmlFor="dec">
                 Description
               </label>
               <input
@@ -84,7 +90,7 @@ export default function PopUp({
                 <div className="error">{formik.errors.description}</div>
               )}
 
-              <label className="mt-4" htmlFor="date">
+              <label className="mt-2" htmlFor="date">
                 Due Date
               </label>
               <input
@@ -97,8 +103,8 @@ export default function PopUp({
               {formik.touched.date && formik.errors.date && (
                 <div className="error">{formik.errors.date}</div>
               )}
-              <label className="mt-4 mb-2">Priority</label>
-              <div className="priority d-flex align-items-center mb-5">
+              <label className="mt-2 mb-2">Priority</label>
+              <div className="priority d-flex align-items-center mb-1">
                 <div
                   tabIndex={0}
                   style={
@@ -130,7 +136,10 @@ export default function PopUp({
                   className="low"
                 ></div>
               </div>
-              <button type="submit" className="submit">
+              {formik.touched.priority && formik.errors.priority && (
+                <div className="error">{formik.errors.priority}</div>
+              )}
+              <button type="submit" className="submit mt-3">
                 Submit
               </button>
             </form>
