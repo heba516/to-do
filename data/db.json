@@ -16,27 +16,11 @@
         },
         {
           "id": "aa04865c-2897-48d2-b307-f17035e9beaa",
-          "todo": "delete userrr",
+          "todo": "delete user",
           "date": "2024-08-10",
           "description": "deleting user",
-          "completed": true,
+          "completed": false,
           "priority": "high"
-        },
-        {
-          "id": "cd1c252f-ffc3-42c3-9777-82f0e600b017",
-          "todo": "heba",
-          "date": "2024-08-03",
-          "description": "good",
-          "completed": false,
-          "priority": "low"
-        },
-        {
-          "id": "c5577246-d7ee-4fd6-874a-5f26ef11dbeb",
-          "todo": "bobo",
-          "date": "2024-08-02",
-          "description": "good",
-          "completed": false,
-          "priority": "med"
         }
       ]
     },
