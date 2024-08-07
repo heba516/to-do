@@ -86,7 +86,7 @@ export default function Home() {
   };
 
   const handleEdit = async (todoID: string, values: ToDo) => {
-    const updatedToDo = todos.map((toDo: ToDo) => {
+    const updatedToDo = orgTodos.map((toDo: ToDo) => {
       if (toDo.id === todoID) {
         return {
           ...toDo,
@@ -101,7 +101,6 @@ export default function Home() {
       return toDo;
     });
 
-    // setTodos(updatedToDo);
     await axios.patch(`http://localhost:3000/users/${id}`, {
       toDos: updatedToDo,
     });
@@ -136,7 +135,12 @@ export default function Home() {
         <div className="row p-1">
           <aside className="col-2 col-lg-3 pt-5 px-0 px-lg-5 d-flex justify-content-between flex-column">
             <div>
-              <p onClick={() => setTodos(orgTodos)}>
+              <p
+                onClick={() => {
+                  setTodos(orgTodos);
+                  console.log(orgTodos);
+                }}
+              >
                 <LayoutList className="me-lg-2" />
                 <span className="d-none d-lg-inline">All Tasks</span>
               </p>
