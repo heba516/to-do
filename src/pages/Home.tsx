@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import {
   SquareCheckBig,
   Square,
+  ListChecks,
   Trash,
   Pencil,
   ArrowUpDown,
@@ -19,6 +20,7 @@ import PopUp from "../components/home/PopUp";
 import "reactjs-popup/dist/index.css";
 
 export default function Home() {
+  const [orgTodos, setOrgTodos] = useState<ToDo[]>([]);
   const [todos, setTodos] = useState<ToDo[]>([]);
   const [isAddPopupOpen, setIsAddPopupOpen] = useState<boolean>(false);
   const [isEditPopupOpen, setIsEditPopupOpen] = useState<boolean>(false);
@@ -31,11 +33,17 @@ export default function Home() {
   useEffect(() => {
     const getUsers = async () => {
       const { data } = await axios.get(`http://localhost:3000/users/${id}`);
+      setOrgTodos(data.toDos);
       setTodos(data.toDos);
     };
 
     getUsers();
-  }, [id]);
+  }, []);
+
+  const completedTasks = () => {
+    const completed = todos.filter((todo) => todo.completed === true);
+    setTodos(completed);
+  };
 
   const handleSortChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     console.log(isSortedByDate);
@@ -60,19 +68,21 @@ export default function Home() {
   const handleAdd = async (values: ToDo) => {
     const newTodo = { ...values, id: v4() };
     const updatedTodos = [...todos, newTodo];
-    setTodos(updatedTodos);
     await axios.patch(`http://localhost:3000/users/${id}`, {
       toDos: updatedTodos,
     });
+    setTodos(updatedTodos);
+    setOrgTodos(updatedTodos);
   };
 
   const handleDelete = async (todoID: string) => {
     const updatedToDos = todos.filter((todo: ToDo) => todo.id !== todoID);
-    setTodos(updatedToDos);
 
     await axios.patch(`http://localhost:3000/users/${id}`, {
       toDos: updatedToDos,
     });
+    setTodos(updatedToDos);
+    setOrgTodos(updatedToDos);
   };
 
   const handleEdit = async (todoID: string, values: ToDo) => {
@@ -91,10 +101,12 @@ export default function Home() {
       return toDo;
     });
 
-    setTodos(updatedToDo);
+    // setTodos(updatedToDo);
     await axios.patch(`http://localhost:3000/users/${id}`, {
       toDos: updatedToDo,
     });
+    setTodos(updatedToDo);
+    setOrgTodos(updatedToDo);
   };
 
   const openAddPopup = () => setIsAddPopupOpen(true);
@@ -124,9 +136,13 @@ export default function Home() {
         <div className="row p-1">
           <aside className="col-2 col-lg-3 pt-5 px-0 px-lg-5 d-flex justify-content-between flex-column">
             <div>
-              <p>
+              <p onClick={() => setTodos(orgTodos)}>
                 <LayoutList className="me-lg-2" />
                 <span className="d-none d-lg-inline">All Tasks</span>
+              </p>
+              <p onClick={completedTasks}>
+                <ListChecks className="me-lg-2" />
+                <span className="d-none d-lg-inline">Completed Tasks</span>
               </p>
               <p>
                 <label htmlFor="sort" className="d-block d-lg-inline">
@@ -188,16 +204,6 @@ export default function Home() {
                             ...toDo,
                             completed: !toDo.completed,
                           });
-                          setTodos(
-                            todos.map((td) =>
-                              td.id === toDo.id
-                                ? {
-                                    ...td,
-                                    completed: !td.completed,
-                                  }
-                                : td
-                            )
-                          );
                         }}
                       >
                         {toDo.completed ? (
