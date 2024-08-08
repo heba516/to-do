@@ -67,7 +67,7 @@
           "todo": "test sorting",
           "date": "2024-07-18",
           "description": "testing",
-          "completed": true,
+          "completed": false,
           "priority": "low"
         },
         {
@@ -83,8 +83,24 @@
           "todo": "completed tasks",
           "date": "2024-08-09",
           "description": "show completed",
-          "completed": false,
+          "completed": true,
           "priority": "med"
+        },
+        {
+          "id": "1eae0ae7-474b-4822-91eb-06d330122bc6",
+          "todo": "pagination",
+          "date": "2024-08-10",
+          "description": "add pagination",
+          "completed": false,
+          "priority": "high"
+        },
+        {
+          "id": "0d7b3b54-2f12-4b0a-a661-a695dbd02aaa",
+          "todo": "sorting tasks",
+          "date": "2024-08-13",
+          "description": "sorting todos by date or priority",
+          "completed": true,
+          "priority": "low"
         }
       ]
     },

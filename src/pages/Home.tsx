@@ -28,6 +28,15 @@ export default function Home() {
   const [currentTodo, setCurrentTodo] = useState<ToDo | null>(null);
   const [isSortedByDate, setIsSortedByDate] = useState<boolean>(false);
 
+  //pagination
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [todosPerPage] = useState<number>(3);
+  const indexOfLastTodo = currentPage * todosPerPage;
+  const indexOfFirstTodo = indexOfLastTodo - todosPerPage;
+  const currentTodos = todos.slice(indexOfFirstTodo, indexOfLastTodo);
+  const totalPages = Math.ceil(todos.length / todosPerPage);
+  const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
+
   const navigate = useNavigate();
   const id = localStorage.getItem("id");
 
@@ -42,10 +51,12 @@ export default function Home() {
   }, [id]);
 
   const completedTasks = () => {
+    paginate(1);
     const completed = orgTodos.filter((todo) => todo.completed === true);
     setTodos(completed);
   };
   const pendingTasks = () => {
+    paginate(1);
     const pending = orgTodos.filter((todo) => todo.completed !== true);
     setTodos(pending);
   };
@@ -142,6 +153,7 @@ export default function Home() {
             <div>
               <p
                 onClick={() => {
+                  paginate(1);
                   setTodos(orgTodos);
                   console.log(orgTodos);
                 }}
@@ -194,9 +206,35 @@ export default function Home() {
             </div>
           </aside>
           <section className="col-10 col-lg-9 py-5 pe-lg-5">
+            <div className="pagination">
+              <button
+                onClick={() => paginate(currentPage - 1)}
+                disabled={currentPage === 1}
+              >
+                Prev
+              </button>
+
+              {Array.from({ length: totalPages }, (_, index) => (
+                <button
+                  key={index + 1}
+                  onClick={() => paginate(index + 1)}
+                  className={index + 1 === currentPage ? "active" : ""}
+                >
+                  {index + 1}
+                </button>
+              ))}
+
+              <button
+                onClick={() => paginate(currentPage + 1)}
+                disabled={currentPage === totalPages}
+              >
+                Next
+              </button>
+            </div>
+
             <div className="todos">
               {todos.length ? (
-                todos.map((toDo: ToDo) => (
+                currentTodos.map((toDo: ToDo) => (
                   <div key={toDo.id}>
                     <div
                       style={

@@ -221,3 +221,28 @@ section {
         left: 450px !important;
     }
 }
+
+
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 2rem;
+
+    button {
+        background-color: white !important;
+        color: #69665C !important;
+        padding: 0 .5rem !important;
+        margin: 0 .5rem;
+        border-radius: 0 !important;
+        -webkit-border-radius: 0 !important;
+        -moz-border-radius: 0 !important;
+        -ms-border-radius: 0 !important;
+        -o-border-radius: 0 !important;
+
+        &.active {
+                border-bottom: 1px solid #69665C;
+        }
+}
+}
