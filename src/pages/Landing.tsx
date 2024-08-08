@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom";
-import "../components/landing/index.scss";
 import { useEffect } from "react";
-import "bootstrap/dist/css/bootstrap.min.css";
 import Logo from "../components/logo";
+import "../components/landing/index.scss";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 export default function Landing() {
   useEffect(() => {

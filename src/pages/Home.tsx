@@ -67,7 +67,7 @@ export default function Home() {
 
   const handleAdd = async (values: ToDo) => {
     const newTodo = { ...values, id: v4() };
-    const updatedTodos = [...todos, newTodo];
+    const updatedTodos = [...orgTodos, newTodo];
     await axios.patch(`http://localhost:3000/users/${id}`, {
       toDos: updatedTodos,
     });
@@ -76,7 +76,7 @@ export default function Home() {
   };
 
   const handleDelete = async (todoID: string) => {
-    const updatedToDos = todos.filter((todo: ToDo) => todo.id !== todoID);
+    const updatedToDos = orgTodos.filter((todo: ToDo) => todo.id !== todoID);
 
     await axios.patch(`http://localhost:3000/users/${id}`, {
       toDos: updatedToDos,

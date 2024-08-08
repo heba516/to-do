@@ -1,11 +1,11 @@
-import "../components/login/index.scss";
-import Logo from "../components/logo";
 import { useState } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { Link, useNavigate } from "react-router-dom";
 import { Mail, UserRound, Lock } from "lucide-react";
 import axios from "axios";
+import "../components/login/index.scss";
+import Logo from "../components/logo";
 
 interface UserValues {
   userName: string;
@@ -69,13 +69,13 @@ const Register: React.FC = () => {
       if (!nameIsFound && !emailIsFound) {
         await axios.post("http://localhost:3000/users", values).then((res) => {
           localStorage.setItem("id", res.data.id);
+          isSubmit(true);
           navigate(`/Home`);
         });
       }
     } catch (error) {
-      console.log("Error: ", error);
-    } finally {
       isSubmit(false);
+      console.log("Error: ", error);
     }
   };
 

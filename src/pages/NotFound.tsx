@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 export default function NotFound() {
   const navigate = useNavigate();
   return (
-    <div className="container text-center my-4">
+    <div className="container text-center my-5">
       <div className="row align-items-center">
         <video
           className="col"

@@ -1,5 +1,5 @@
 import "./App.css";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Landing from "./pages/Landing";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
@@ -10,7 +10,7 @@ import IsProtected from "./components/IsProtected";
 function App() {
   return (
     <>
-      <Router>
+      <BrowserRouter>
         <Routes>
           <Route path="/" Component={Landing} />
           <Route
@@ -39,7 +39,7 @@ function App() {
           />
           <Route path="*" Component={NotFound} />
         </Routes>
-      </Router>
+      </BrowserRouter>
     </>
   );
 }

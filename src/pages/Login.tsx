@@ -1,11 +1,11 @@
+import { useState } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { useState } from "react";
-import { Mail, Lock } from "lucide-react";
-import "../components/login/index.scss";
-import Logo from "../components/logo";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { Mail, Lock } from "lucide-react";
+import Logo from "../components/logo";
+import "../components/login/index.scss";
 interface UserValues {
   email: string;
   password: string;
