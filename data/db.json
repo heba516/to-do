@@ -19,6 +19,22 @@
           "todo": "delete user",
           "date": "2024-08-10",
           "description": "deleting user",
+          "completed": true,
+          "priority": "high"
+        },
+        {
+          "id": "8922bfa4-3aa8-45ac-8852-0328d54b7292",
+          "todo": "update users",
+          "date": "2024-08-10",
+          "description": "updating user",
+          "completed": false,
+          "priority": "med"
+        },
+        {
+          "id": "a1ba3d9c-17d4-4649-aa98-0fb348803529",
+          "todo": "add priority",
+          "date": "2024-08-10",
+          "description": "priority",
           "completed": false,
           "priority": "high"
         }

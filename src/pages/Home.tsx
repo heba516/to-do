@@ -7,6 +7,7 @@ import {
   Trash,
   Pencil,
   ArrowUpDown,
+  ListTodo,
 } from "lucide-react";
 import { Annoyed, LayoutList, LogOut, Plus } from "lucide-react";
 import { v4 } from "uuid";
@@ -41,8 +42,12 @@ export default function Home() {
   }, [id]);
 
   const completedTasks = () => {
-    const completed = todos.filter((todo) => todo.completed === true);
+    const completed = orgTodos.filter((todo) => todo.completed === true);
     setTodos(completed);
+  };
+  const pendingTasks = () => {
+    const pending = orgTodos.filter((todo) => todo.completed !== true);
+    setTodos(pending);
   };
 
   const handleSortChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
@@ -141,8 +146,12 @@ export default function Home() {
                   console.log(orgTodos);
                 }}
               >
-                <LayoutList className="me-lg-2" />
+                <ListTodo className="me-lg-2" />
                 <span className="d-none d-lg-inline">All Tasks</span>
+              </p>
+              <p onClick={pendingTasks}>
+                <LayoutList className="me-lg-2" />
+                <span className="d-none d-lg-inline">Pending Tasks</span>
               </p>
               <p onClick={completedTasks}>
                 <ListChecks className="me-lg-2" />
