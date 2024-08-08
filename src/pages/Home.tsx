@@ -38,7 +38,7 @@ export default function Home() {
     };
 
     getUsers();
-  }, []);
+  }, [id]);
 
   const completedTasks = () => {
     const completed = todos.filter((todo) => todo.completed === true);
